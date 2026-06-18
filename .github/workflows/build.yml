@@ -1,0 +1,15 @@
+name: Build binary
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - run: cargo build --bin boringtun-cli --release
+      - uses: actions/upload-artifact@v3
+        with:
+          name: boringtun-cli-linux-amd64
+          path: target/release/boringtun-cli
